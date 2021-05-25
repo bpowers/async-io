@@ -65,6 +65,7 @@ impl Reactor {
     /// Returns a reference to the reactor.
     pub(crate) fn get() -> &'static Reactor {
         static REACTOR: Lazy<Reactor> = Lazy::new(|| {
+            #[cfg(feature = "driver")]
             crate::driver::init();
             Reactor {
                 poller: Poller::new().expect("cannot initialize I/O event notification"),
